@@ -5,6 +5,17 @@
   - [Dependancies](#dependancies)
   - [Supervised Classification](#supervised-classification)
   - [Overview](#overview)
+  - [Lazy learner](#lazy-learner)
+    - [K-Nearest Neighbor](#k-nearest-neighbor)
+    - [Case-based Reasoning](#case-based-reasoning)
+  - [Eager Learner](#eager-learner)
+    - [Decision Tree](#decision-tree)
+    - [Logistic Regression](#logistic-regression)
+    - [Naive Bayes](#naive-bayes)
+    - [Random Forest](#random-forest)
+    - [Support Vector Machine](#support-vector-machine)
+    - [Artificial Neural Networks](#artificial-neural-networks)
+  - [References](#references)
 
 ## Outline
 
@@ -34,4 +45,48 @@ An script for setting up development environment for machine learning is provide
 |  Lazy Learner |      Low      |       High      |
 | Eager Learner |      High     |       Low       |
 
+## Lazy learner
+
+### K-Nearest Neighbor
+
+`KNN` Is one of the more basic algorithms and is oftenly used to benchmark more complex classifiers like Artificial Neural Networks and Support Vector Machines.
+
+It operates by storing all instances correspond to training data points in n-dimensional space. When an unknown discrete data is received, it analyzes the closest k number of instances saved and returns the most common class as the prediction result .In case of real-valued data it returns the mean of k nearest neighbors.
+
+There is also other variation of KNN such as:
+
+- [Distance-weighted KNN](https://www.geeksforgeeks.org/weighted-k-nn/)
+- [dual distance-weighted KNN](https://pdfs.semanticscholar.org/a128/62972be0e7e6e901825723e703117a6d8128.pdf) 
+- [Modified K-Nearest Neighbor (MKNN)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.545&rep=rep1&type=pdf)
+- [Dynamic K-Nearest-Neighbor](https://ieeexplore.ieee.org/abstract/document/5559858)
+
+I also found an inseresting [paper](https://ieeexplore.ieee.org/abstract/document/4406010) that offers different methodologies to pmproving K-Nearest-Neighbor for Classification.
+
+The following are some real-world sample implementations and/or utilization of KNN:
+
+- `[GO]` [Implementation In Pure GO](https://github.com/mervin0502/knnAlg)
+- `[GO]` [Webserver For classifying images with KNN](https://github.com/arnaucube/galdric)
+- `[RUST]` [KNN Node.js module written in Rust for high perfromance and parallelism](https://github.com/houtanf/Unsupervised-KNN-JS)
+- `[RUST]` [KNN algorithm with GPU calculation](https://github.com/stoand/rust-gpu_kNN)
+- `[PYTHON]` [Simple Python Implementation of KNN algorithm ](https://github.com/iiapache/KNN)
+
+### Case-based Reasoning
+
+## Eager Learner
+
+### Decision Tree
+
+### Logistic Regression
+
+### Naive Bayes
+
+### Random Forest
+
+### Support Vector Machine
+
+### Artificial Neural Networks
+
+## References
+
 [supervised-root]: fixtures/mermaid/supervised-root.png "Supervised Classifiers Based On Learner Type"
+
