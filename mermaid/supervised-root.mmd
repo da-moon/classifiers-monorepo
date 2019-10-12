@@ -1,0 +1,22 @@
+graph LR
+    root["Classifiers Based On Learner Type"]
+    lazy["Lazy Learner"]
+    eager["Eager Learner"]
+    knn["N-Nearest Neighbor"]
+    cbr["Case-Based Reasoning"]
+    dt["Decision Tree"]
+    rf["Random Forest"]
+    nb["Naive Bayes"]
+    nn["Artificial Neural Networks (Perceptrons)"]
+    lr["Logistic Regression"]
+    svm["Support Vector Machine"]
+    root-->lazy;
+    lazy-->knn;
+    lazy-->cbr;
+    root-->eager;
+    eager-->dt;
+    eager-->rf;
+    eager-->nb;
+    eager-->nn;
+    eager-->lr;
+    eager-->svm;
