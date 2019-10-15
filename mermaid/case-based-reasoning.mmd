@@ -1,0 +1,13 @@
+graph TD
+    problem("Problem")
+    sc("Similar Cases")
+    pc("Prior Cases")
+    psolution("Proposed Solution")
+    csolution("Confirmed Solution")
+
+    problem-. Retrieve .->sc;
+    sc-. Re-use .->psolution;
+    psolution-. Revise .->csolution;
+    csolution-. Retain .->pc;
+    pc-->sc;
+   
