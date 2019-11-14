@@ -59,6 +59,13 @@ This repo is used to host material on machine learning classification methodolog
 ## Dependancies
 
 To offer consistent workflow, all files and dependencies are compiled in isolated docker container by default when using `gnu make`.
+
+to commit using makefile target , use the following pattern
+
+```bash
+make commit msg="**commit message**" label="[bugfix]"
+```
+
 If you want to build and run make target on your own machine , out of docker containers , edit Makefile and set `DOCKER_ENV` to `false`. Make sure to run `make dep` in case you choose to not use the dockerized build pipeline.
 
 All diagrams and flowcharts are generated with [`Mermaid.JS`](https://mermaidjs.github.io) . Source codes for mermaid files are stored under `mermaid` directory and generated pdf files can be found at `fixtures/mermaid`. You can generate diagrams by running `make mermaid` in terminal.

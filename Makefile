@@ -35,6 +35,8 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 MERMAID_IMAGE=mikoto2000/mermaid.cli
 # ENVIRONMENT Setting
 DOCKER_ENV = true
+COMMIT_MESSAGE ?= $(msg)
+TAG_LABEL ?= $(label)
 CMD_ARGUMENTS ?= $(cmd)
 ifeq ($(DOCKER_ENV),true)
     ifeq ($(shell ${WHICH} docker 2>${DEVNUL}),)
@@ -58,7 +60,7 @@ endif
 # Mermaid Files
 MERMAID_FILES?=$(patsubst %.mmd,%,$(subst mermaid/,, $(call rwildcard,mermaid/,*.mmd)))
 
-.PHONY: all dep shell clean mermaid 
+.PHONY: all dep shell clean mermaid  commit
 # ex : make cmd="ls -lah"
 shell:
 ifneq ($(DOCKER_ENV),)
@@ -102,6 +104,12 @@ mermaid:  clean
 clean: 
 	- $(CLEAR)
 	- $(RM) fixtures/mermaid
+commit :
+	- $(CLEAR)
+	- git add -A
+	- git commit -m "$(COMMIT_MESSAGE)"
+	- @scripts/git/git-tag-release --label=$(TAG_LABEL) --sep="|"
+	- git push origin master --tags
 
 dep: 
 	- $(CLEAR)

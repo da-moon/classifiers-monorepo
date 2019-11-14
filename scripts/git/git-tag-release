@@ -1,0 +1,58 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use POSIX 'strftime';
+use Getopt::Long;
+my %opt = ( label => 'release',
+            sign  => 0,
+            separator => '-' );
+GetOptions(\%opt,
+           'quiet',
+           'label=s',
+           'sign',
+           'separator=s',
+           'who=s')
+  or die <<_USAGE_;
+usage: $0 [--quiet] [--sign] [--sep=.] [--label=release] [--who=username]
+_USAGE_
+
+unless ($opt{who}) {
+    $opt{who} = `git config user.email`;
+    $opt{who} =~ s/\@.*//;
+    chomp $opt{who};
+    $opt{who} ||= (getpwuid($>))[0];
+}
+
+my $uniq = 'a';
+my $tag = sub { join($opt{separator}, $opt{label}, strftime("%y%m%d", localtime) . shift, $opt{who}) };
+
+## gather at existing tags
+open my $pipe, "-|", "git", "tag" or die $!;
+my %tags = ();
+TAGS: while ( my $line = <$pipe> ) {
+    chomp $line;
+    $tags{$line} = 1;
+}
+close $pipe;
+
+## increment until we have a unique tag
+while ( exists $tags{$tag->($uniq)} ) {
+    $uniq++;
+}
+
+my $our_lovely_tag = $tag->($uniq);
+
+## bag it, tag it, sell it to the butcher in the store
+print "tagging branch with '$our_lovely_tag'\n";
+my @tag_cmd = ('git', 'tag', ( $opt{sign}
+                               ? ('-s', $our_lovely_tag, '-m', "- automatically tagged by $opt{who}")
+                               : ($our_lovely_tag) ));
+system @tag_cmd
+  and die <<"_SORRY_";
+
+Sorry to bother you, but I couldn't tag this branch with
+'$our_lovely_tag'; you'll have to tag it on your own.
+
+_SORRY_
+
+exit;
